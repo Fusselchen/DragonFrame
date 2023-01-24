@@ -1,0 +1,7 @@
+package-as: DragonFrame
+
+ignore:
+    - *.md
+    - .pkgmeta
+    - .gitignore
+
