@@ -1,3 +1,7 @@
+# 1.0.100007
+
+* Game Version update to 10.0.7
+
 # 1.0.100005
 
 * Game Version update to 10.0.5
