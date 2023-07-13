@@ -1,5 +1,5 @@
-## Interface: 100100
-## Version: 1.0.100100
+## Interface: 100105
+## Version: 1.0.100105
 ## Title: DragonFrame
 ## Notes: Brings back the classic dragon border for rare spawns
 ## Author: Fusselchen
