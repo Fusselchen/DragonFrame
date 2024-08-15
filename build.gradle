@@ -2,9 +2,11 @@ plugins{
     id 'base'
 }
 
-def patchversion="11.0.99"
-version='110099'
+// World of Warcraft patch version
+def patchversion="11.0.5"
 
+
+version=''
 layout.buildDirectory='build'
 
 tasks.register('packageZIP', Zip) {
@@ -20,23 +22,26 @@ tasks.register('generateSources', Copy){
     dependsOn(prepare)
 
     from 'src'
-    into file('build')
+    exclude('CHANGELOG.md')
+    into layout.buildDirectory
     filter { line -> line.replaceAll('WOWVERSION', version)}
 }
 
 tasks.register('prepare'){
-    dependsOn(clean)
-    mkdir new File('build')
+    new File('build').mkdir()
 
-    def f = new File('build/CHANGELOG.md')
-    f.append("# 1.0.$version\n\n* Game Version update to $patchversion\n\n")
+    def v=patchversion.tokenize('.')
+    v.each { s -> version+=s.padLeft(2,"0") }
+
+    def f = layout.buildDirectory.file('CHANGELOG.md').get().getAsFile()
+    f.write("# 1.0.$version\n\n* Game Version update to $patchversion\n\n")
     f.append(file('src/CHANGELOG.md').readBytes())
 }
 
 tasks.register('updateSrc', Copy){
     dependsOn(generateSources)
     dependsOn(packageZIP)
-    from 'build/CHANGELOG.md'
+    from layout.buildDirectory.file('CHANGELOG.md')
     into 'src'
 }
 
