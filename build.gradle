@@ -1,0 +1,42 @@
+plugins{
+    id 'base'
+}
+
+def patchversion="11.0.99"
+version='110099'
+
+layout.buildDirectory='build'
+
+tasks.register('packageZIP', Zip) {
+    dependsOn(generateSources)
+
+    from layout.buildDirectory
+    destinationDirectory = file('dist')
+    archiveBaseName="DragonFrame"
+    into('DragonFrame')
+}
+
+tasks.register('generateSources', Copy){
+    dependsOn(prepare)
+
+    from 'src'
+    into file('build')
+    filter { line -> line.replaceAll('WOWVERSION', version)}
+}
+
+tasks.register('prepare'){
+    dependsOn(clean)
+    mkdir new File('build')
+
+    def f = new File('build/CHANGELOG.md')
+    f.append("# 1.0.$version\n\n* Game Version update to $patchversion\n\n")
+    f.append(file('src/CHANGELOG.md').readBytes())
+}
+
+tasks.register('updateSrc', Copy){
+    dependsOn(generateSources)
+    dependsOn(packageZIP)
+    from 'build/CHANGELOG.md'
+    into 'src'
+}
+

@@ -1,5 +1,5 @@
-## Interface: 110002
-## Version: 1.0.110002
+## Interface: WOWVERSION
+## Version: 1.0.WOWVERSION
 ## Title: DragonFrame
 ## Notes: Brings back the classic dragon border for rare spawns
 ## Author: Fusselchen
