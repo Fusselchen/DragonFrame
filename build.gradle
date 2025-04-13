@@ -3,7 +3,7 @@ plugins{
 }
 
 // World of Warcraft patch version
-def patchversion="11.1.0"
+def patchversion="11.1.5"
 
 
 version=''
